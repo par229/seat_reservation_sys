@@ -9,7 +9,7 @@ interface ClassItem {
   time: string;
   location: string;
   days: string;
-  capacity: number; // 추가: 수강 정원
+  capacity: number;
 }
 
 interface SeatType {
@@ -104,6 +104,7 @@ export default function IndexScreen() {
           >
             <Text style={styles.className}>{classItem.name}</Text>
             <Text style={styles.professorName}>{classItem.professor}</Text>
+            <Text style={styles.capacityText}>수강 인원: {classItem.capacity}명</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
   },
   className: { fontSize: 16, fontWeight: 'bold', color: '#333' },
   professorName: { fontSize: 14, color: '#666' },
+  capacityText: { fontSize: 13, color: '#555', marginTop: 4 },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
@@ -204,8 +206,8 @@ const styles = StyleSheet.create({
     borderColor: '#e67e22',
   },
   disabledSeat: {
-    backgroundColor: '#7f8c8d',  // 더 짙은 회색
-    borderColor: '#636e72',     // 테두리도 어두운 회색
+    backgroundColor: '#7f8c8d',
+    borderColor: '#636e72',
   },
   seatText: { color: '#2c3e50', fontSize: 13 },
   reserveButton: {
