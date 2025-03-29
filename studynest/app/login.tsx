@@ -10,7 +10,6 @@ import {
   Dimensions,
   ActivityIndicator,
   Alert,
-  Animated,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { BlurView } from 'expo-blur';
@@ -29,7 +28,6 @@ export default function LoginScreen() {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    // 입력 값 검증
     if (!username.trim() || !password.trim()) {
       Alert.alert('입력 오류', '학번과 비밀번호를 모두 입력해주세요.');
       return;
@@ -37,11 +35,8 @@ export default function LoginScreen() {
 
     try {
       setIsLoading(true);
-
-      // 실제 API 호출 대신 임시 지연 추가 (로딩 상태 확인용)
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // 임시 사용자 정보 생성
       const userInfo = {
         id: '1',
         name: '홍길동',
@@ -50,11 +45,9 @@ export default function LoginScreen() {
         year: '3학년',
       };
 
-      // AsyncStorage에 토큰 및 사용자 정보 저장
       await AsyncStorage.setItem('auth_token', 'dummy_token_' + Date.now());
       await AsyncStorage.setItem('user_info', JSON.stringify(userInfo));
 
-      // 로그인 성공 후 탭 화면으로 이동
       router.replace('/(tabs)');
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
@@ -74,7 +67,7 @@ export default function LoginScreen() {
 
   return (
     <LinearGradient
-      colors={['#4a86e8', '#2563eb', '#1e40af']}
+      colors={['#43a047', '#388e3c', '#2e7d32']}
       style={styles.container}
     >
       <StatusBar style="light" />
@@ -83,15 +76,12 @@ export default function LoginScreen() {
         style={styles.container}
       >
         <View style={styles.logoContainer}>
-          <Text style={styles.appName}>SEAT</Text>
+          <Text style={styles.appName}>ZEROSEAT</Text>
           <Text style={styles.appSlogan}>좌석 예약 & 출석체크 시스템</Text>
         </View>
 
         <BlurView intensity={30} tint="dark" style={styles.formContainer}>
-          <View style={[
-            styles.inputContainer,
-            focusedInput === 'username' && styles.inputContainerFocused
-          ]}>
+          <View style={[styles.inputContainer, focusedInput === 'username' && styles.inputContainerFocused]}>
             <Ionicons name="person-outline" size={22} color="#ffffff" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
@@ -106,10 +96,7 @@ export default function LoginScreen() {
             />
           </View>
 
-          <View style={[
-            styles.inputContainer,
-            focusedInput === 'password' && styles.inputContainerFocused
-          ]}>
+          <View style={[styles.inputContainer, focusedInput === 'password' && styles.inputContainerFocused]}>
             <Ionicons name="lock-closed-outline" size={22} color="#ffffff" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
@@ -127,19 +114,12 @@ export default function LoginScreen() {
               onPress={() => setShowPassword(!showPassword)}
               disabled={isLoading}
             >
-              <Ionicons
-                name={showPassword ? 'eye-outline' : 'eye-off-outline'}
-                size={22}
-                color="#ffffff"
-              />
+              <Ionicons name={showPassword ? 'eye-outline' : 'eye-off-outline'} size={22} color="#ffffff" />
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity 
-            style={[
-              styles.loginButton, 
-              isLoading && styles.loginButtonDisabled
-            ]} 
+          <TouchableOpacity
+            style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
             onPress={handleLogin}
             disabled={isLoading}
           >
@@ -154,19 +134,11 @@ export default function LoginScreen() {
           </TouchableOpacity>
 
           <View style={styles.footer}>
-            <TouchableOpacity 
-              onPress={handleForgotPassword} 
-              disabled={isLoading}
-              style={styles.footerButton}
-            >
+            <TouchableOpacity onPress={handleForgotPassword} disabled={isLoading} style={styles.footerButton}>
               <Text style={styles.footerText}>비밀번호 찾기</Text>
             </TouchableOpacity>
             <Text style={styles.footerDivider}>|</Text>
-            <TouchableOpacity 
-              onPress={handleRegister} 
-              disabled={isLoading}
-              style={styles.footerButton}
-            >
+            <TouchableOpacity onPress={handleRegister} disabled={isLoading} style={styles.footerButton}>
               <Text style={styles.footerText}>회원가입</Text>
             </TouchableOpacity>
           </View>
@@ -254,13 +226,13 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   loginButtonText: {
-    color: '#2563eb',
+    color: '#2e7d32',
     fontSize: 18,
     fontWeight: 'bold',
   },
   loginButtonIcon: {
     marginLeft: 8,
-    color: '#2563eb',
+    color: '#2e7d32',
   },
   footer: {
     flexDirection: 'row',
